@@ -6,7 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-group = "bits.code.gitui"
+group = "bits.code.vgit"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -21,17 +21,17 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0")
 
-    implementation(project("repo"))
+    implementation(project("git"))
     implementation(compose.desktop.currentOs)
 }
 
 compose.desktop {
     application {
-        mainClass = "bits.code.gitui.ui.MainKt"
+        mainClass = "bits.code.vgit.ui.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "gitui"
+            packageName = "vgit"
             packageVersion = "1.0.0"
         }
     }

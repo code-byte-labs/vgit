@@ -1,4 +1,4 @@
-package bits.code.gitui.repo
+package bits.code.vgit.git
 
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.Ref
@@ -9,7 +9,7 @@ import java.io.File
 object Client {
 
     private val repository =
-        FileRepositoryBuilder().setGitDir(File("/Users/samael/Workspace/javascript/Recoil/.git")).readEnvironment()
+        FileRepositoryBuilder().setGitDir(File("C:\\Users\\Admin\\Workspace\\javascript\\Recoil\\.git")).readEnvironment()
             .findGitDir().build()
 
     private val git = Git(repository)
