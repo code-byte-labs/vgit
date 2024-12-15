@@ -18,7 +18,7 @@ fun WindowScope.App() {
         window.minimumSize = Dimension(800, 600)
     }
     MaterialTheme {
-        RepositoryPanel(File("C:\\Users\\Admin\\Workspace\\javascript\\Recoil\\.git"))
+        RepositoryPanel(File("/Users/samael/Workspace/javascript/Recoil/.git"))
     }
 }
 
