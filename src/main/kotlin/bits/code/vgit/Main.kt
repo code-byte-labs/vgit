@@ -7,7 +7,6 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowScope
 import androidx.compose.ui.window.application
 import bits.code.vgit.ui.RepositoryPanel
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import java.awt.Dimension
 import java.awt.Point
 import java.awt.Toolkit
@@ -21,7 +20,7 @@ fun WindowScope.App() {
         window.minimumSize = Dimension(800, 600)
     }
     MaterialTheme {
-        RepositoryPanel(File("C:\\Users\\Admin\\Workspace\\javascript\\Recoil\\.git"))
+        RepositoryPanel(File(System.getenv("GIT_DIR")))
     }
 }
 
