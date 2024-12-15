@@ -4,15 +4,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import bits.code.vgit.git.Repository
+import jdk.internal.org.jline.utils.DiffHelper
 import kotlinx.coroutines.launch
-import org.eclipse.jgit.diff.DiffEntry
+import org.eclipse.jgit.diff.DiffFormatter
 import org.eclipse.jgit.lib.Ref
 import org.eclipse.jgit.revwalk.RevCommit
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 @Composable
@@ -24,9 +25,9 @@ fun RepositoryPanel(repo: File) {
 
     val repository = remember(repo) { Repository(repo) }
 
-    var diff by remember { mutableStateOf<DiffEntry?>(null) }
-
     val coroutineScope = rememberCoroutineScope()
+
+    var diffs by remember { mutableStateOf<List<String>>(listOf()) }
 
     LaunchedEffect(repo) {
         commits = repository.commits()
@@ -35,18 +36,27 @@ fun RepositoryPanel(repo: File) {
 
     Box {
         if (changePanelVisible) {
-            ChangePanel(diff, close = { changePanelVisible = false })
-        } else {
-            Row {
-                BranchesPanel(branches)
-                Spacer(modifier = Modifier.width(8.dp))
-                CommitsPanel(commits, showChangePanel = {
-                    coroutineScope.launch {
-                        diff = repository.diff()[0]
-                        changePanelVisible = true
+            ChangePanel(diffs, close = { changePanelVisible = false })
+        }
+
+        Row {
+            BranchesPanel(branches)
+            Spacer(modifier = Modifier.width(8.dp))
+            CommitsPanel(commits) { sourceRevCommit, destinationRevCommit ->
+                coroutineScope.launch {
+                    val res = mutableListOf<String>()
+                    repository.diff(sourceRevCommit, destinationRevCommit).forEach {
+                        val outputStream = ByteArrayOutputStream()
+                        val formatter = DiffFormatter(outputStream)
+                        formatter.setRepository(repository.repository())
+                        formatter.format(it)
+                        res.add(String(outputStream.toByteArray()))
                     }
-                })
+                    diffs = res
+                    changePanelVisible = true
+                }
             }
         }
+
     }
 }

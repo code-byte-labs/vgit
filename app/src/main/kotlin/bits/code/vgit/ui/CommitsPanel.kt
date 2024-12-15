@@ -7,17 +7,28 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import org.eclipse.jgit.revwalk.RevCommit
 
+@Suppress("FunctionName")
 @Composable
-fun CommitsPanel(commits: List<RevCommit>, showChangePanel: (RevCommit) -> Unit) {
+fun CommitsPanel(commits: List<RevCommit>, onItemClick: (RevCommit?, RevCommit) -> Unit) {
     Column {
         SelectionContainer {
             LazyColumn {
                 items(commits.size, key = { commits[it].id }) {
                     Text(
-                        commits[it].shortMessage,
-                        modifier = Modifier.clickable { showChangePanel(commits[it]) },
+                        text = commits[it].shortMessage,
+                        modifier = Modifier.clickable {
+                            val sourceRevCommit = if (it + 1 == commits.size) {
+                                null
+                            } else {
+                                commits[it + 1]
+                            }
+                            onItemClick(sourceRevCommit, commits[it])
+                        },
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
             }
