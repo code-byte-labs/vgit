@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "bits.code.gitui"
+group = "bits.code.vgit"
 version = "1.0-SNAPSHOT"
 
 repositories {

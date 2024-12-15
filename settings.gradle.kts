@@ -14,5 +14,5 @@ pluginManagement {
 }
 
 rootProject.name = "vgit"
-include("app")
+include("ui")
 include("git")

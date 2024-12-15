@@ -1,10 +1,13 @@
-package bits.code.vgit.ui
+package bits.code.vgit
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowScope
 import androidx.compose.ui.window.application
+import bits.code.vgit.ui.RepositoryPanel
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 import java.awt.Dimension
 import java.awt.Point
 import java.awt.Toolkit
@@ -23,7 +26,10 @@ fun WindowScope.App() {
 }
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(
+        onCloseRequest = ::exitApplication,
+        icon = painterResource("app.svg")
+    ) {
         LaunchedEffect(Unit) {
             window.minimumSize = Dimension(800, 600)
         }

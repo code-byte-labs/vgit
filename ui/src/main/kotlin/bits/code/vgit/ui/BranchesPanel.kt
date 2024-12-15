@@ -6,6 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import org.eclipse.jgit.lib.Ref
 
+@Suppress("FunctionName")
 @Composable
 fun BranchesPanel(branches: List<Ref>) {
     Column {

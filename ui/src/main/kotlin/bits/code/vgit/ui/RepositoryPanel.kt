@@ -1,14 +1,10 @@
 package bits.code.vgit.ui
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import bits.code.vgit.git.Repository
-import jdk.internal.org.jline.utils.DiffHelper
 import kotlinx.coroutines.launch
 import org.eclipse.jgit.diff.DiffFormatter
 import org.eclipse.jgit.lib.Ref
@@ -16,6 +12,7 @@ import org.eclipse.jgit.revwalk.RevCommit
 import java.io.ByteArrayOutputStream
 import java.io.File
 
+@Suppress("FunctionName")
 @Composable
 fun RepositoryPanel(repo: File) {
 
@@ -34,11 +31,7 @@ fun RepositoryPanel(repo: File) {
         branches = repository.branches()
     }
 
-    Box {
-        if (changePanelVisible) {
-            ChangePanel(diffs, close = { changePanelVisible = false })
-        }
-
+    Box(modifier = Modifier.fillMaxSize()) {
         Row {
             BranchesPanel(branches)
             Spacer(modifier = Modifier.width(8.dp))
@@ -58,5 +51,8 @@ fun RepositoryPanel(repo: File) {
             }
         }
 
+        if (changePanelVisible) {
+            ChangePanel(diffs, close = { changePanelVisible = false })
+        }
     }
 }
