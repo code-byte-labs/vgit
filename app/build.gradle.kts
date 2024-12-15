@@ -18,10 +18,12 @@ repositories {
 dependencies {
     implementation(project(":git"))
     implementation(compose.desktop.currentOs)
+    implementation(compose.components.resources)
     implementation("org.eclipse.jgit:org.eclipse.jgit:7.1.0.202411261347-r")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0")
+    implementation("com.google.code.gson:gson:2.11.0")
 }
 
 task("wrapper", Wrapper::class) {
@@ -36,6 +38,16 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "vgit"
             packageVersion = "1.0.0"
+
+            macOS {
+                iconFile.set(project.file("./src/main/resources/app.svg"))
+            }
+            windows {
+                iconFile.set(project.file("./src/main/resources/app.svg"))
+            }
+            linux {
+                iconFile.set(project.file("./src/main/resources/app.svg"))
+            }
         }
     }
 }
