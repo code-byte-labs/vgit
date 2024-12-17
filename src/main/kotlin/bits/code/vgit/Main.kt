@@ -26,6 +26,7 @@ fun WindowScope.App() {
 
 fun main() = application {
     Window(
+        title = "vgit",
         onCloseRequest = ::exitApplication,
         icon = painterResource("app.svg")
     ) {

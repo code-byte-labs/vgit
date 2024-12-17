@@ -1,5 +1,7 @@
 package bits.code.vgit.ui
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -52,6 +54,8 @@ fun RepositoryPanel(repo: File) {
         }
 
         if (changePanelVisible) {
+            // prevent click through
+            Box(modifier = Modifier.fillMaxSize().clickable(interactionSource = MutableInteractionSource(), indication = null) {  })
             ChangePanel(diffs, close = { changePanelVisible = false })
         }
     }
